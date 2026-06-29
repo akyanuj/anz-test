@@ -24,4 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "AnzTest"
 include(":app")
- 
+include(":feature-users")
+include(":feature-user-detail")
