@@ -1,6 +1,4 @@
-package com.test.anzapplication.feature_users.data.common
-
-import com.test.anzapplication.feature_users.common.DomainError
+package com.test.anzapplication.feature_users.common
 
 sealed interface DataResult<out T> {
     data class Success<out T>(
