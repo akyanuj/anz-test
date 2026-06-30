@@ -68,7 +68,6 @@ fun UsersScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .statusBarsPadding()
         ) {
             when {
                 state.isLoading -> {

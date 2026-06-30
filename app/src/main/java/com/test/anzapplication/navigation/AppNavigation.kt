@@ -38,9 +38,9 @@ fun AppNavigation(navController: NavHostController) {
                     user = user,
                     onBack = { navController.popBackStack() }
                 )
-            } else {
-                // Fallback or error handling
             }
         }
     }
 }
+
+

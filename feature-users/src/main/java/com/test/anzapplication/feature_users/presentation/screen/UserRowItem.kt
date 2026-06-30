@@ -21,7 +21,6 @@ fun UserRowItem(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .statusBarsPadding()
     ) {
         items(users) { user ->
             ListItem(

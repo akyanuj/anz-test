@@ -39,7 +39,9 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
 
     implementation(libs.androidx.core.ktx)
-    //implementation(libs.material)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
     
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
