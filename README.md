@@ -1,7 +1,45 @@
-# anz-test
-Anz - test assesment for android development. using MVI-MVVM (not pure mvi - no reducers), compose, hilt, flows and coroutines  
+# Anz-test
+Anz - test assesment for android development 
 
-# Directory Structure 
+## Tech Stack
+- Kotlin
+- Jetpack Compose
+- MVVM/MVI - not pure mvi(reducers not used)
+- Clean Architecture
+- Multi Module
+- Hilt
+- Retrofit
+- Coroutines
+- Flow
+- Material 3
+- Coil
+
+## Architecture
+-app
+--core
+--feature-users
+--feature-user-detail
+
+## Features
+- Users List
+- User Detail
+- Refresh
+- Error Handling
+- Loading State
+
+## Unit Tests
+
+- UsersViewModel
+- GetUsersUseCase
+- UsersRepository
+
+## Assumptions
+
+- No Room database was added because offline support was not part of the requirements.
+- The selected User is passed between screens instead of re-fetching because the API does not expose a Get User By Id endpoint.
+- Manual Parcelable implementation was used due to a Parcelize tooling issue with the current Kotlin/AGP setup.
+
+# Directory Structure
 
 ```
 ├── app
@@ -35,18 +73,27 @@ Anz - test assesment for android development. using MVI-MVVM (not pure mvi - no 
 │       ├── state
 ```
 
-## Demo
-
+## Demo Video
 [Watch Demo](media/working_anzr.mp4)
 
-## Screenshots
-
-### User List 
+## Screen shots
+User List
 [user-list-screen](media/user-list.png)
 
-
-### User Details
+User Details
 [user-detail-screen](media/detail.png)
+
+## Improvements
+
+- Add Room for offline caching
+- Pagination
+- Search
+- Retry button
+- Pull to refresh
+- UI tests
+- Paging 3
+
+
 
 
 
