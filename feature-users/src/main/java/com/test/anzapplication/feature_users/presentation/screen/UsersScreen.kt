@@ -1,37 +1,100 @@
 package com.test.anzapplication.feature_users.presentation.screen
 
-import android.text.Layout
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import com.google.android.material.progressindicator.CircularProgressIndicator
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.test.anzapplication.feature.users.R
+import com.test.anzapplication.feature_users.domain.model.User
 import com.test.anzapplication.feature_users.presentation.state.UsersIntent
-import com.test.anzapplication.feature_users.presentation.viewmodel.UsersViewmodel
-import java.lang.reflect.Modifier
+import com.test.anzapplication.feature_users.presentation.viewmodel.UsersViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UsersScreen(
-    navController: NavController,
-    viewModel: UsersViewmodel = hiltViewModel()
+    onUserClick: (User) -> Unit,
+    viewModel: UsersViewModel = hiltViewModel()
 ) {
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val state by viewModel.state.collectAsStateWithLifecycle()
-
-    // Trigger initial load when screen opens
-    LaunchedEffect(Unit) {
-        viewModel.handleIntent(UsersIntent.)
-    }
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        if (state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Layout.Alignment.Center))
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text("Users List ")
+                },
+                actions = {
+                    IconButton(
+                        onClick = {
+                            viewModel.onIntent(UsersIntent.Refresh)
+                        },
+                        enabled = !state.isLoading && !state.isRefreshing
+                    ) {
+                        if (state.isRefreshing) {
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(20.dp),
+                                strokeWidth = 2.dp
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Filled.Refresh,
+                                contentDescription = stringResource(R.string.refresh)
+                            )
+                        }
+                    }
+                }
+            )
         }
+    ) { innerPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .statusBarsPadding()
+        ) {
+            when {
+                state.isLoading -> {
+                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                }
 
-        if (state.error != null) {
-            org.w3c.dom.Text(text = state.error!!, modifier = Modifier.align(Alignment.Center))
-        }
+                state.hasError && state.users.isEmpty() -> {
+                    Text(
+                        text = stringResource(R.string.something_went_wrong),
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+                    state.users.isEmpty() -> {
+                        Text(
+                            text = stringResource(R.string.no_users_found),
+                            modifier = Modifier.align(Alignment.Center)
+                        )
+                    }
+                else ->
+                    UserRowItem(
+                        users = state.users,
+                        onUserClick = onUserClick
+                    )
 
-        if (state.users.isNotEmpty()) {
-            UserList(users = state.users)
+            }
         }
     }
 }
+
