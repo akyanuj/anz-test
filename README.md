@@ -6,12 +6,13 @@ Anz - test assesment for android development. using MVI-MVVM (not pure mvi - no 
 ```
 ├── app
 │      ├── common  
-|      ├── model
 |      ├── network
+|      ├── di
 |      └── ui
 ├── feature-users
 │   ├── data
 │   │   ├── remote
+│   |   ├── di
 │   │   ├── mapper
 │   │   └── repository
 │   │
@@ -24,23 +25,32 @@ Anz - test assesment for android development. using MVI-MVVM (not pure mvi - no 
 │       ├── screen
 │       ├── state
 │       ├── viewmodel
-│       └── components
 │
 ├── feature-user-detail
 |   ├── data
-│   │   ├── remote
-│   │   ├── mapper
 │   │   └── repository
-│   │
 │   ├── domain
-│   │   ├── model
-│   │   ├── repository
-│   │   └── usecase
-│   │
 │   └── presentation
 │       ├── screen
 │       ├── state
-│       ├── viewmodel
-│       └── components
-│
-└──
+```
+
+## Demo
+
+[Watch Demo](media/working_anzr.mp4)
+
+## Screenshots
+
+### User List 
+[user-list-screen](media/user-list.png)
+
+
+### User Details
+[user-detail-screen](media/detail.png)
+
+
+
+
+
+
+
