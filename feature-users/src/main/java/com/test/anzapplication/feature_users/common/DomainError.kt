@@ -1,5 +1,6 @@
 package com.test.anzapplication.feature_users.common
 
+import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -19,10 +20,13 @@ sealed interface DomainError {
 
 
 
-fun Throwable.toDomainError(): DomainError {
-    return when (this) {
-        is SocketTimeoutException -> DomainError.NetworkTimeout
-        is UnknownHostException -> DomainError.NoInternet
-        else -> DomainError.Unknown(this)
-    }
+fun Throwable.toDomainError(): DomainError = when (this) {
+    is SocketTimeoutException -> DomainError.NetworkTimeout
+    is UnknownHostException -> DomainError.NoInternet
+    is HttpException ->
+        DomainError.ServerError(
+            code = code(),
+            message = message()
+        )
+    else -> DomainError.Unknown(this)
 }

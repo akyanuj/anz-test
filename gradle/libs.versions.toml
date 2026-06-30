@@ -1,6 +1,7 @@
 [versions]
 agp = "9.1.0"
 kotlin = "2.1.0"
+kotlinxCoroutinesTest = "1.11.0"
 ksp = "2.1.0-1.0.29"
 coreKtx = "1.18.0"
 lifecycleRuntimeKtx = "2.10.0"
@@ -17,6 +18,8 @@ hilt = "2.59.2"
 hiltNavigationCompose = "1.3.0"
 runtime = "1.11.3"
 coil = "3.3.0"
+mockk = "1.14.5"
+turbine = "1.2.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -57,6 +60,10 @@ androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime
 #coil
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
+#testing
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test" }
+mockk = { module = "io.mockk:mockk", version.ref="mockk" }
+turbine = { module = "app.cash.turbine:turbine", version.ref ="turbine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

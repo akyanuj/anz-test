@@ -7,7 +7,6 @@ import com.test.anzapplication.feature_users.domain.usecase.GetUsersUseCase
 import com.test.anzapplication.feature_users.presentation.state.UsersIntent
 import com.test.anzapplication.feature_users.presentation.state.UsersUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -21,25 +20,18 @@ class UsersViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UsersUiState())
     val uiState = _uiState.asStateFlow()
 
-    private var fetchJob: Job? = null
-
-    init {
-        fetchUsers()
-    }
-
     fun onIntent(intent: UsersIntent) {
         when (intent) {
+            UsersIntent.Load -> fetchUsers()
             UsersIntent.Refresh -> fetchUsers(isRefresh = true)
-            is UsersIntent.UserClicked -> Unit
         }
     }
 
     private fun fetchUsers(
         isRefresh: Boolean = false
     ) {
-
-        fetchJob?.cancel()
-        fetchJob = viewModelScope.launch {
+        viewModelScope.launch {
+            //loading
             _uiState.update { state ->
                 state.copy(
                     isLoading = !isRefresh,
