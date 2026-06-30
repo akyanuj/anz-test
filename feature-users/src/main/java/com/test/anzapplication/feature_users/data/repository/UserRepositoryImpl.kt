@@ -1,7 +1,7 @@
 package com.test.anzapplication.feature_users.data.repository
 
-import com.test.anzapplication.feature_users.data.common.DataResult
-import com.test.anzapplication.feature_users.data.common.toDomainError
+import com.test.anzapplication.feature_users.common.DataResult
+import com.test.anzapplication.feature_users.common.toDomainError
 import com.test.anzapplication.feature_users.data.remote.UserApi
 import com.test.anzapplication.feature_users.data.toUser
 import com.test.anzapplication.feature_users.domain.model.User
