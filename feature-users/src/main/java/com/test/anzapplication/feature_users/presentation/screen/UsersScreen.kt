@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CircularProgressIndicator
@@ -21,11 +20,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.test.anzapplication.feature.users.R
 import com.test.anzapplication.feature_users.domain.model.User
 import com.test.anzapplication.feature_users.presentation.state.UsersIntent
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.test.anzapplication.feature_users.presentation.viewmodel.UsersViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,7 +43,7 @@ fun UsersScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Users List ")
+                    Text(stringResource(R.string.users_list))
                 },
                 actions = {
                     IconButton(
@@ -80,8 +79,11 @@ fun UsersScreen(
                 }
 
                 state.hasError && state.users.isEmpty() -> {
-                    Text(
-                        text = stringResource(R.string.something_went_wrong),
+                    ErrorContent(
+                        error = state.error,
+                        onRetry = {
+                            viewModel.onIntent(UsersIntent.Load)
+                        },
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
