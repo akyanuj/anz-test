@@ -83,6 +83,9 @@ User List
 User Details
 [user-detail-screen](media/detail.png)
 
+Error - Retry
+[error](media/error.png)
+
 ## Improvements
 
 - Add Room for offline caching

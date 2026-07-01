@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.test.anzapplication.feature.users.R
+import com.test.anzapplication.feature_users.common.toMessage
 import com.test.anzapplication.feature_users.domain.model.User
 import com.test.anzapplication.feature_users.presentation.state.UsersIntent
 import com.test.anzapplication.feature_users.presentation.viewmodel.UsersViewModel
@@ -44,7 +45,7 @@ fun UsersScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Users List ")
+                    Text(stringResource(R.string.users_list))
                 },
                 actions = {
                     IconButton(
@@ -80,8 +81,11 @@ fun UsersScreen(
                 }
 
                 state.hasError && state.users.isEmpty() -> {
-                    Text(
-                        text = stringResource(R.string.something_went_wrong),
+                    ErrorContent(
+                        error = state.error,
+                        onRetry = {
+                            viewModel.onIntent(UsersIntent.Load)
+                        },
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }

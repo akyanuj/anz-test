@@ -30,3 +30,19 @@ fun Throwable.toDomainError(): DomainError = when (this) {
         )
     else -> DomainError.Unknown(this)
 }
+
+fun DomainError?.toMessage(): String =
+    when (this) {
+        DomainError.NoInternet ->
+            "No internet connection.\nPlease check your connection and try again."
+
+        DomainError.NetworkTimeout ->
+            "Request timed out.\nPlease try again."
+
+        is DomainError.ServerError ->
+            "Server error (${this.code}).\nPlease try again later."
+
+        is DomainError.Unknown,
+        null ->
+            "Something went wrong.\nPlease try again."
+    }
